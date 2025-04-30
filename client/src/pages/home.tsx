@@ -46,6 +46,7 @@ export default function Home() {
         price: 0
       }
     ],
+    taxRate: 8.25,
     subtotal: 0,
     tax: 0,
     total: 0,

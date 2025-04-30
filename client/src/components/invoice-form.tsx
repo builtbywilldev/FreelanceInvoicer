@@ -55,6 +55,7 @@ export default function InvoiceForm({
         price: 0
       }
     ],
+    taxRate: 8.25,
     subtotal: 0,
     tax: 0,
     total: 0,
@@ -68,9 +69,9 @@ export default function InvoiceForm({
     }
   }, [initialInvoice]);
 
-  // Update calculations whenever lineItems change
+  // Update calculations whenever lineItems or taxRate change
   useEffect(() => {
-    const { subtotal, tax, total } = calculateTotals(formData.lineItems);
+    const { subtotal, tax, total } = calculateTotals(formData.lineItems, formData.taxRate);
     setFormData(prev => ({
       ...prev,
       subtotal,
@@ -85,15 +86,25 @@ export default function InvoiceForm({
       tax,
       total
     });
-  }, [formData.lineItems]);
+  }, [formData.lineItems, formData.taxRate]);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id]: value
-    }));
+    
+    // Handle numeric inputs (like taxRate)
+    if (id === 'taxRate') {
+      const numValue = parseFloat(value);
+      setFormData(prev => ({
+        ...prev,
+        [id]: isNaN(numValue) ? 0 : numValue
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [id]: value
+      }));
+    }
   };
 
   // Add a new line item
@@ -295,6 +306,7 @@ export default function InvoiceForm({
             price: 0
           }
         ],
+        taxRate: 8.25,
         subtotal: 0,
         tax: 0,
         total: 0,
