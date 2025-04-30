@@ -28,6 +28,7 @@ export const invoiceSchema = z.object({
   dueDate: z.string().min(1, "Due date is required"),
   notes: z.string().optional().or(z.literal("")),
   lineItems: z.array(lineItemSchema),
+  taxRate: z.number().min(0, "Tax rate cannot be negative").max(100, "Tax rate cannot exceed 100%"),
   subtotal: z.number(),
   tax: z.number(),
   total: z.number(),

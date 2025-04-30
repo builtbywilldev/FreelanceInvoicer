@@ -35,13 +35,17 @@ export function formatCurrency(amount: number): string {
   }).format(amount);
 }
 
-export function calculateTotals(lineItems: Array<{ quantity: number; price: number }>) {
+export function calculateTotals(
+  lineItems: Array<{ quantity: number; price: number }>,
+  taxRate: number = 8.25
+) {
   const subtotal = lineItems.reduce((sum, item) => {
     return sum + (item.quantity * item.price);
   }, 0);
   
-  const taxRate = 0.0825; // 8.25%
-  const tax = subtotal * taxRate;
+  // Convert percentage to decimal (e.g., 8.25% -> 0.0825)
+  const taxRateDecimal = taxRate / 100;
+  const tax = subtotal * taxRateDecimal;
   const total = subtotal + tax;
   
   return {
