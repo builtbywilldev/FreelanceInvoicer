@@ -37,6 +37,28 @@ export const invoiceSchema = z.object({
 
 export type Invoice = z.infer<typeof invoiceSchema>;
 
+// Lunch Planner schema
+export const dayMealSchema = z.object({
+  id: z.string(),
+  day: z.enum(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']),
+  mainMeal: z.string().optional().or(z.literal("")),
+  snack: z.string().optional().or(z.literal("")),
+  drink: z.string().optional().or(z.literal("")),
+  notes: z.string().optional().or(z.literal("")),
+});
+
+export type DayMeal = z.infer<typeof dayMealSchema>;
+
+export const lunchPlanSchema = z.object({
+  id: z.string(),
+  name: z.string().default("Weekly Lunch Plan"),
+  days: z.array(dayMealSchema),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type LunchPlan = z.infer<typeof lunchPlanSchema>;
+
 // We don't need database tables since we're using localStorage
 // but we keep the structure here for consistency
 
