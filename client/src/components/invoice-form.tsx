@@ -522,8 +522,21 @@ export default function InvoiceForm({
             <span className="text-slate-600">Subtotal:</span>
             <span id="subtotal" className="font-medium">{formatCurrency(formData.subtotal)}</span>
           </div>
-          <div className="flex w-full max-w-xs justify-between">
-            <span className="text-slate-600">Tax (8.25%):</span>
+          <div className="flex w-full max-w-xs justify-between items-center">
+            <div className="flex items-center">
+              <span className="text-slate-600 mr-2">Tax Rate:</span>
+              <Input
+                id="taxRate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                value={formData.taxRate}
+                onChange={handleChange}
+                className="w-16 px-2 py-1 text-right"
+              />
+              <span className="ml-1 text-slate-600">%</span>
+            </div>
             <span id="tax" className="font-medium">{formatCurrency(formData.tax)}</span>
           </div>
           <div className="flex w-full max-w-xs justify-between pt-2 border-t border-slate-200">

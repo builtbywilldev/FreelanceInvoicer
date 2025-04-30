@@ -115,7 +115,7 @@ export default function InvoicePreview({ invoice }: InvoicePreviewProps) {
               </span>
             </div>
             <div className="flex justify-between py-2 border-b border-slate-200">
-              <span className="text-slate-600">Tax (8.25%):</span>
+              <span className="text-slate-600">Tax ({invoice.taxRate.toFixed(2)}%):</span>
               <span id="preview-tax" className="font-medium">
                 {formatCurrency(invoice.tax)}
               </span>
